@@ -20,12 +20,12 @@ jobs:
       JOB_TYPE: BUILD
     steps:
     - name: Checkout VoodooI2C
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7.0.1
       with:
         submodules: 'recursive'
         fetch-depth: 500
     - name: Checkout MacKernelSDK
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7.0.1
       with:
         repository: acidanthera/MacKernelSDK
         path: MacKernelSDK
@@ -59,13 +59,13 @@ jobs:
         NUM_COMMITS="$(git rev-list ${LAST_TAG}..@ --count)"
         echo "Since the last release there have been ${NUM_COMMITS} commit(s). The descriptions for the first (at most) 10 of these are as follows${NEW_LINES}${LAST_TEN_COMMITS}" >> ./changelog.md
 
-    - uses: softprops/action-gh-release@v2
+    - uses: softprops/action-gh-release@v3.0.3
       if: github.event_name == 'release'
       with:
         files: build/Build/Products/*/*.zip
         body_path: ./changelog.md
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7.0.1
       with:
         name: VoodooI2C-${{ steps.vars.outputs.sha_short }}
         path: build/Build/Products/*/*.zip
@@ -75,11 +75,11 @@ jobs:
     runs-on: macos-latest
     steps:
     - name: Checkout VoodooI2C
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7.0.1
       with:
         submodules: 'recursive'
     - name: Checkout MacKernelSDK
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7.0.1
       with:
         repository: acidanthera/MacKernelSDK
         path: MacKernelSDK
@@ -100,7 +100,7 @@ jobs:
 
     - name: Package Documentation
       run: zip -r Docs.zip ./docs/*
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7.0.1
       with:
         name: VoodooI2C-Docs
         path: Docs.zip
@@ -124,11 +124,11 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout VoodooI2C
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           submodules: 'recursive'
       - name: Checkout MacKernelSDK
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           repository: acidanthera/MacKernelSDK
           path: MacKernelSDK
